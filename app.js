@@ -15,7 +15,9 @@ var express         = require('express'),
     flash             = require('connect-flash')
 
 //mongoose.connect("mongodb://localhost/yelp_camp", {useNewUrlParser: true});
-mongoose.connect("mongodb://delewis:delewis13@ds155864.mlab.com:55864/yelpcamp", {useNewUrlParser: true})
+//mongoose.connect("mongodb://delewis:delewis13@ds155864.mlab.com:55864/yelpcamp", {useNewUrlParser: true})
+
+mongoose.connect(process.env.DATABASEURL, {useNewUrlParser: true})
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"))
@@ -48,6 +50,6 @@ app.use('/campgrounds/:id/comments', commentRoutes);
 app.use('/campgrounds', campgroundRoutes);
 app.use(indexRoutes);
 
-app.listen(process.env.PORT || port, process.env.IP, function(){
+app.listen(process.env.PORT, process.env.IP, function(){
     console.log("YelpCamp server started");
 });
